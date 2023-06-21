@@ -42,24 +42,24 @@ def extractPDF(filename):
         # Text extrahieren
         text = page.extract_text()
         result = text.split('\n')
+        #print(result, len(result))
+        wettkampf = result[0]
+        Disziplin = result[2]
+        Name = result[4]
+        pattern = r"\d{1,2}\.\d{1,2}\.\d{4}"
+        match = re.search(pattern, result[len(result) - 1])
+        Datum = match.group(0)
         if len(result) == 10:
-            wettkampf = result[0]
-            Disziplin = result[2]
-            Name = result[4]
             SLG = result[5]
-            Platzierung = result[7][0]
-            pattern = r"\d{1,2}\.\d{1,2}\.\d{4}"
-            match = re.search(pattern, result[len(result)-1])
-            Datum = match.group(0)
+            Platzierung = re.findall(r'\d+[.]',result[7])[0]
         elif len(result) == 9:
-            wettkampf = result[0]
-            Disziplin = result[2]
-            Name = result[4]
-            SLG = "Einzelschütze"
-            Platzierung = result[6][0]
-            pattern = r"\d{1,2}\.\d{1,2}\.\d{4}"
-            match = re.search(pattern, result[len(result) - 1])
-            Datum = match.group(0)
+            if result.__contains__('Gesamt'):
+                SLG = "Einzelschütze"
+                Platzierung = re.findall(r'\d+[.]', result[6])[0]
+            else:
+                SLG = result[5]
+                Platzierung = re.findall(r'\d+[.]', result[7])[0]
+
         else:
             print(result)
 
