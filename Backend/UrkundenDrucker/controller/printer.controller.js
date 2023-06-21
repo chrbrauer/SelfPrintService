@@ -136,6 +136,14 @@ module.exports.getAllCompetitors = (req, res) => {
     });
 }
 
+module.exports.getAllSLG = (req, res) => {
+    const query = 'SELECT SLG from schuetzen DISTINCT'
+    connection.query(query, (error, results) => {
+        if (error) throw error;
+        return res.status(200).json({status: true, content: results})
+    });
+}
+
 module.exports.searchCompetition = (req, res) => {
     const query = 'SELECT schuetzen.id, schuetzen.forname, schuetzen.surename from schuetzen JOIN urkunden ON schuetzen.id = urkunden.schuetze_id WHERE wettkaempf_id = ?'
     connection.query(query, [req.query['id']], (error, results) => {
