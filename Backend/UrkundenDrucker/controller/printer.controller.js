@@ -154,8 +154,16 @@ module.exports.searchByCompetitor = (req, res) => {
 }
 
 module.exports.loadCertificate = (req, res) => {
-    const query = 'SELECT id, disziplin, filename, platz, printed from urkunden WHERE schuetze_id = ? AND wettkaempf_id = ?'
+    const query = 'SELECT wettkaempf_id, schuetze_id, id, disziplin, filename, platz, printed from urkunden WHERE schuetze_id = ? AND wettkaempf_id = ?'
     connection.query(query, [req.query['sh'], req.query['comp']], (error, results) => {
+        if (error) throw error;
+        return res.status(200).json({status: true, content: results})
+    });
+}
+
+module.exports.loadCertificateCompetitior = (req, res) => {
+    const query = 'SELECT wettkaempf_id, schuetze_id, id, disziplin, filename, platz, printed from urkunden WHERE schuetze_id = ?'
+    connection.query(query, [req.query['sh']], (error, results) => {
         if (error) throw error;
         return res.status(200).json({status: true, content: results})
     });
