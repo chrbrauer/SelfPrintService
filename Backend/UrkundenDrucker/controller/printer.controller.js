@@ -171,13 +171,13 @@ module.exports.loadCertificateCompetitior = (req, res) => {
 
 module.exports.loadCertificateSLG = (req, res) => {
     if (req.query['comp'] !== undefined) {
-        const query = 'SELECT wettkaempf_id, schuetze_id, id, disziplin, filename, platz, printed from urkunden JOIN schuetzen ON urkunden.schuetze_id = schuetzen.id WHERE schuetzen.slg = ? AND urkunden.wettkaempf_id = ?'
+        const query = 'SELECT urkunden.wettkaempf_id, urkunden.schuetze_id, urkunden.id, urkunden.disziplin, urkunden.filename, urkunden.platz, urkunden.printed from urkunden JOIN schuetzen ON urkunden.schuetze_id = schuetzen.id WHERE schuetzen.slg = ? AND urkunden.wettkaempf_id = ?'
         connection.query(query, [converter(req.query['slg']), req.query['comp']], (error, results) => {
             if (error) throw error;
             return res.status(200).json({status: true, content: results})
         });
     }else{
-        const query = 'SELECT wettkaempf_id, schuetze_id, id, disziplin, filename, platz, printed from urkunden JOIN schuetzen ON urkunden.schuetze_id = schuetzen.id WHERE slg = ?'
+        const query = 'SELECT urkunden.wettkaempf_id, urkunden.schuetze_id, urkunden.id, urkunden.disziplin, urkunden.filename, urkunden.platz, urkunden.printed from urkunden JOIN schuetzen ON urkunden.schuetze_id = schuetzen.id WHERE slg = ?'
         connection.query(query, [converter(req.query['slg'])], (error, results) => {
             if (error) throw error;
             return res.status(200).json({status: true, content: results})
