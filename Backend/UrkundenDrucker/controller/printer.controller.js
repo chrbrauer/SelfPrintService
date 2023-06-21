@@ -137,7 +137,7 @@ module.exports.getAllCompetitors = (req, res) => {
 }
 
 module.exports.getAllSLG = (req, res) => {
-    const query = 'SELECT SLG from schuetzen DISTINCT'
+    const query = 'SELECT DISTINCT SLG from schuetzen'
     connection.query(query, (error, results) => {
         if (error) throw error;
         return res.status(200).json({status: true, content: results})

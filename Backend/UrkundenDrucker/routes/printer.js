@@ -15,7 +15,7 @@ router.get('/getCompetition', ctrl_print.getAllCompetition)
 router.get('/getCompetitors', ctrl_print.getAllCompetitors)
 router.get('/findCompetitor', ctrl_print.findCompetitor)
 router.get('/findCompetition', ctrl_print.findCompetition)
-router.get('/getAllSlG', ctrl_print.getAllSLG)
+router.get('/getAllSLG', ctrl_print.getAllSLG)
 router.post('/uploadCertificate', ctrl_print.UploadCertificate)
 
 module.exports = router;

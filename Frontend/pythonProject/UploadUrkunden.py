@@ -54,7 +54,7 @@ def extractPDF(filename):
             Platzierung = re.findall(r'\d+[.]',result[7])[0]
         elif len(result) == 9:
             if result.__contains__('Gesamt'):
-                SLG = "Einzelschütze"
+                SLG = "Einzelmitglied"
                 Platzierung = re.findall(r'\d+[.]', result[6])[0]
             else:
                 SLG = result[5]
